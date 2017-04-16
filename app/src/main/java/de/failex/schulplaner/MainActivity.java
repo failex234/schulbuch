@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -171,10 +169,8 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<String> klausuren = new ArrayList<>();
         klausuren.add("Klausuren");
-        //klausuren.add("Derzeit keine");
         ArrayList<String> hausaufgaben = new ArrayList<>();
         hausaufgaben.add("Hausaufgaben");
-        //hausaufgaben.add("TODO");
 
         ArrayList<String> datumklausuren = new ArrayList<>();
         datumklausuren.add("Datum-Klausuren");
@@ -185,6 +181,9 @@ public class MainActivity extends AppCompatActivity {
         datumhausaufgaben.add("Datum-Hausaufgaben");
         ArrayList<String> datenhausuafgaben = new ArrayList<>();
         datenhausuafgaben.add("Daten-Hausaufgaben");
+
+        ArrayList<String> tagebuch = new ArrayList<>();
+        tagebuch.add("Lerntagebuch");
 
 
         lib.inhalt = list1;
@@ -197,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
         lib.inhalt.add(datenklausuren); //Index 6
         lib.inhalt.add(datumhausaufgaben); //Index 7
         lib.inhalt.add(datenhausuafgaben); //Index 8
+        lib.inhalt.add(tagebuch); //Index 9
         Gson gson = new Gson();
 
         String string = gson.toJson(lib);
@@ -208,21 +208,28 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        createTagebuch();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.option_menu_main, menu); //your file name
-        return super.onCreateOptionsMenu(menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent(getApplicationContext(), TestActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, this.getTitle());
-        startActivity(intent);
-        return super.onOptionsItemSelected(item);
+    public void createTagebuch() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(2017, 3, 3);
+        Tagebuch tb = new Tagebuch();
+        Gson gson = new Gson();
 
+        tb.fach.add("Beispielfach");
+        cal.add(Calendar.DATE, 1);
+        tb.datum.add(cal.getTime());
+        tb.text.add("Dies ist ein kleiner Beispielstext für das Lerntagebuch!");
+        String string = gson.toJson(tb);
+        FileOutputStream outputStream;
+        try {
+            outputStream = openFileOutput("tagebuch.json", Context.MODE_PRIVATE);
+            outputStream.write(string.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

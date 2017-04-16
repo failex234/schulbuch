@@ -9,6 +9,8 @@ import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class ItemActivity extends AppCompatActivity {
@@ -32,6 +35,7 @@ public class ItemActivity extends AppCompatActivity {
     boolean inEditMode;
     ArrayAdapter<String> adapter;
     ListView lview;
+    MenuItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -253,8 +257,63 @@ public class ItemActivity extends AppCompatActivity {
                     finish();
                 }
                 break;
+            case "Lerntagebuch":
+                this.setTitle("Lerntagebuch");
+                File tag = new File(this.getFilesDir(), "tagebuch.json");
+                Gson gs = new Gson();
+                StringBuilder en = new StringBuilder();
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader(tag));
+                    String line = br.readLine();
+
+                    while (line != null) {
+                        en.append(line);
+                        line = br.readLine();
+                    }
+                    br.close();
+                }
+                catch(IOException e) {
+                    e.printStackTrace();
+
+                }
+                Tagebuch tb = gs.fromJson(en.toString(), Tagebuch.class);
+
+
+                ArrayList<String> fach = tb.fach;
+                ArrayList<Date> datum = tb.datum;
+                ArrayList<String> text = tb.text;
+
+                if (fach.size() == datum.size() && datum.size() == text.size()) {
+                    for (int i = 0; i < fach.size(); i++) {
+                        endliste.add(fach.get(i) + " vom " + datum.get(i).toString() + ": " + text.get(i));
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "FEHLER! Die Listen sind unterschiedlich groß!", Toast.LENGTH_LONG).show();
+                }
+                break;
         }
+
         lview = (ListView) findViewById(R.id.listView);
+
+        lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SparseBooleanArray liste = lview.getCheckedItemPositions();
+                int counter = 0;
+                if (liste != null) {
+                    for (int i = 0; i  < liste.size(); i++) {
+                        if (liste.get(liste.keyAt(i))) {
+                            counter++;
+                        }
+                    }
+                    if (counter > 0) {
+                        item.setTitle("Löschen");
+                    } else {
+                        item.setTitle("Abbrechen");
+                    }
+                }
+            }
+        });
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, endliste);
         lview.setAdapter(adapter);
 
@@ -263,7 +322,7 @@ public class ItemActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (this.getTitle().equals("Notenübersicht") || this.getTitle().toString().contains("Stundenplan")) return false;
+        if (this.getTitle().equals("Notenübersicht") || this.getTitle().toString().contains("Stundenplan") || this.getTitle().toString().contains("Lerntagebuch")) return false;
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.option_menu, menu); //your file name
         return super.onCreateOptionsMenu(menu);
@@ -271,8 +330,8 @@ public class ItemActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (this.getTitle().equals("Notenübersicht") || this.getTitle().toString().contains("Stundenplan")) return false;
-        if (item.getTitle().toString().equals("Bearbeiten") || item.getTitle().toString().equals("Löschen")) {
+        if (this.getTitle().equals("Notenübersicht") || this.getTitle().toString().contains("Stundenplan") || this.getTitle().toString().equals("Lerntagebuch")) return false;
+        if (item.getTitle().toString().equals("Bearbeiten") || item.getTitle().toString().equals("Löschen") || item.getTitle().toString().equals("Abbrechen")) {
             if (inEditMode) {
                 item.setTitle("Bearbeiten");
                 SparseBooleanArray checked = lview.getCheckedItemPositions();
@@ -338,7 +397,8 @@ public class ItemActivity extends AppCompatActivity {
                 lview.setAdapter(adapter);
                 inEditMode = false;
             } else {
-                item.setTitle("Löschen");
+                item.setTitle("Abbrechen");
+                this.item = item;
                 adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, endliste);
                 lview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
                 lview.setItemsCanFocus(false);

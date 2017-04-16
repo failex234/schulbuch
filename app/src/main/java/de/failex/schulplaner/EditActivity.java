@@ -47,6 +47,7 @@ public class EditActivity extends AppCompatActivity {
         final EditText datum = (EditText) findViewById(R.id.editText7);
         final EditText fach = (EditText) findViewById(R.id.editText6);
 
+        fach.requestFocus();
         if (message.equals("Hausaufgabenübersicht")) {
             this.setTitle("Hinzufügen - Hausaufgaben");
             feld.setHint("Aufgabe");
@@ -127,6 +128,7 @@ public class EditActivity extends AppCompatActivity {
                 fach.setText("");
                 datum.setText("");
                 feld.setText("");
+                fach.requestFocus();
                 writeChanges();
 
             }

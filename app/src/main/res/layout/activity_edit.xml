@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:windowSoftInputMode="adjustPan"
-    tools:context="de.failex.schulplaner.de.failex.schulplaner.EditActivity">
+    tools:context="de.failex.schulplaner.EditActivity">
 
 
     <EditText
