@@ -20,3 +20,8 @@ android:
 jdk: oraclejdk8
 
 sudo: required
+
+before_install:
+   - set -e
+   - set -x
+   - echo y | android update sdk --no-ui --all --filter build-tools-25.0.2 | grep 'package installed'
