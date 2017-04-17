@@ -1,28 +1,11 @@
 language: android
 android:
-   licenses:
-   - 'android-sdk-preview-license-52d11cd2'
-   - 'android-sdk-license-.+'
-   - 'google-gdk-license-.+'
-   - '*'
-   components:
-   - tools
-   - tools
-   - platform-tools
-   - android-25
-   - build-tools-25.0.2
-   - extra
-   - extra-google-google_play_services
-   - extra-google-m2repository
-   - extra-android-m2repository
-   - addon-google_apis-google-19
-
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-   - sys-img-armeabi-v7a-android-22
-   - sys-img-armeabi-v7a-android-17
-
-jdk: oraclejdk8
-
-sudo: required
-
+  components:
+    - build-tools-25.0.2
+    - android-25
+    - add-on
+    - extra
+  licenses:
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
