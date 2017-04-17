@@ -1,5 +1,10 @@
 language: android
 android:
+   licenses:
+   - 'android-sdk-preview-license-52d11cd2'
+   - 'android-sdk-license-.+'
+   - 'google-gdk-license-.+'
+   - '*'
    components:
    - tools
    - tools
@@ -21,8 +26,3 @@ jdk: oraclejdk8
 
 sudo: required
 
-   licenses:
-   - 'android-sdk-preview-license-52d11cd2'
-   - 'android-sdk-license-.+'
-   - 'google-gdk-license-.+'
-   - '*'
