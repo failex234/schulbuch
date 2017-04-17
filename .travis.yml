@@ -8,18 +8,6 @@ android:
    - build-tools-25.0.2
    - extra
 
-    # Additional components
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - addon-google_apis-google-19
-    - extra-google-gson
+jdk: oraclejdk8
 
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-25
-    
-   
-#jdk: oraclejdk8
-
-#sudo: required
+sudo: required
