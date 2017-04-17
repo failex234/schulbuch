@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -285,7 +287,9 @@ public class ItemActivity extends AppCompatActivity {
 
                 if (fach.size() == datum.size() && datum.size() == text.size()) {
                     for (int i = 0; i < fach.size(); i++) {
-                        endliste.add(fach.get(i) + " vom " + datum.get(i).toString() + ": " + text.get(i));
+                        DateFormat dateFormat = new SimpleDateFormat("dd.MM HH:mm");
+                        Date date = datum.get(i);
+                        endliste.add(fach.get(i) + " vom " + dateFormat.format(date) + ": " + text.get(i));
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "FEHLER! Die Listen sind unterschiedlich groß!", Toast.LENGTH_LONG).show();

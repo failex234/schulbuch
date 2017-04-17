@@ -16,8 +16,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -34,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
         final ListView lview = (ListView) findViewById(R.id.lview);
         gson = new Gson();
         File file = new File(this.getFilesDir(), "config.json");
+        File tbuch = new File(this.getFilesDir(), "tagebuch.json");
+
+        if (!tbuch.exists()) {
+            createTagebuch();
+        }
 
         if (!file.exists()) {
             this.createConfig();
@@ -212,15 +221,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createTagebuch() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(2017, 3, 3);
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM HH:mm");
+        Date date = new Date();
         Tagebuch tb = new Tagebuch();
         Gson gson = new Gson();
 
-        tb.fach.add("Beispielfach");
-        cal.add(Calendar.DATE, 1);
-        tb.datum.add(cal.getTime());
-        tb.text.add("Dies ist ein kleiner Beispielstext für das Lerntagebuch!");
+        tb.fach.add("Mathe");
+        try {
+            tb.datum.add(dateFormat.parse(dateFormat.format(date)));
+        }
+        catch(ParseException e) {
+            e.printStackTrace();
+        }
+        tb.text.add("Heute haben wir über Ortsvektoren gesprochen.");
         String string = gson.toJson(tb);
         FileOutputStream outputStream;
         try {
