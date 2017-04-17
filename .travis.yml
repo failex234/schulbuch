@@ -1,9 +1,13 @@
 language: android
 sudo: false
 android:
+  licenses:
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
   components:
     - tools
-    - build-tools-25.0.2
+    - build-tools-25.0.0
     - platform-tools
     - extra-android-m2repository
     - extra-google-android-support
