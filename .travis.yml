@@ -1,16 +1,12 @@
 language: android
 android:
-  components:
-    # Uncomment the lines below if you want to
-    # use the latest revision of Android SDK Tools
-    # - platform-tools
-    # - tools
-
-    # The BuildTools version used by your project
-    - build-tools-25.0.2
-
-    # The SDK version used to compile your project
-    - android-25
+   components:
+   - tools
+   - tools
+   - platform-tools
+   - android-25
+   - build-tools-25.0.2
+   - extra
 
     # Additional components
     - extra-google-google_play_services
@@ -22,3 +18,8 @@ android:
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-25
+    
+   
+jdk: oraclejdk8
+
+sudo: required
