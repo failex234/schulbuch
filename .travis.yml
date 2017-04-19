@@ -3,7 +3,6 @@ android:
   components:
     - build-tools-20.0.0
     - android 25
-    - sys-img-armeabi-v7a-android-tv-l
     - add-on
     - extra
   licenses:
