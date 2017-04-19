@@ -419,9 +419,9 @@ public class ItemActivity extends AppCompatActivity {
                 inEditMode = true;
             }
         } else if (item.getTitle().toString().equals("Hinzufügen")) {
-            Intent intent = new Intent(getApplicationContext(), EditActivity.class);
-            intent.putExtra(EXTRA_MESSAGE, this.getTitle());
-            startActivity(intent);
+            Intent intentm = new Intent(getApplicationContext(), EditActivity.class);
+            intentm.putExtra(EXTRA_MESSAGE, this.getTitle());
+            startActivity(intentm);
             finish();
         } else if (item.getTitle().toString().equals("Zielpunktzahl bearbeiten")) {
             Toast.makeText(getApplicationContext(), "Du möchtest also deine Ziele anpassen?", Toast.LENGTH_LONG).show();
