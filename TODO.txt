@@ -5,4 +5,5 @@
 - Evtl. eine Art Lerntagebuch bzw. Notierung der Themen einer Stunde
 - ÜberActivity erstellen: MainActivity-Menü > Über > Über-Activity
 - Lerntagebucheinträge hinzufügen
+- mehr
 
