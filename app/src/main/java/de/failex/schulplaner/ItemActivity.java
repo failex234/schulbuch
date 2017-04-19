@@ -357,6 +357,7 @@ public class ItemActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), EditActivity.class);
             intent.putExtra(EXTRA_MESSAGE, this.getTitle());
             startActivity(intent);
+            finish();
         }
         if (item.getTitle().toString().equals("Bearbeiten") || item.getTitle().toString().equals("Löschen") || item.getTitle().toString().equals("Abbrechen")) {
             if (inEditMode) {
@@ -421,6 +422,7 @@ public class ItemActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), EditActivity.class);
             intent.putExtra(EXTRA_MESSAGE, this.getTitle());
             startActivity(intent);
+            finish();
         } else if (item.getTitle().toString().equals("Zielpunktzahl bearbeiten")) {
             Toast.makeText(getApplicationContext(), "Du möchtest also deine Ziele anpassen?", Toast.LENGTH_LONG).show();
 
