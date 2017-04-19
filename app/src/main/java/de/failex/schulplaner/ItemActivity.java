@@ -399,7 +399,9 @@ public class ItemActivity extends AppCompatActivity {
                 for (int i = checkedElements.size() - 1; i >= 0; i--) {
                     endliste.remove(checkedElements.get(i));
                 }
-                endliste.add("Kein Eintrag!");
+                if (checkedElements.size() > 0) {
+                    endliste.add("Kein Eintrag!");
+                }
                 adapter.notifyDataSetChanged();
                 lview.clearChoices();
                 adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, endliste);
