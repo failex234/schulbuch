@@ -3,6 +3,7 @@ package de.failex.schulplaner;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.util.Calendar;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
@@ -326,21 +327,45 @@ public class ItemActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (this.getTitle().equals("Notenübersicht") || this.getTitle().toString().contains("Stundenplan") || this.getTitle().toString().contains("Lerntagebuch")) return false;
+        if (this.getTitle().toString().contains("Stundenplan")) return false;
+
+        if (this.getTitle().toString().contains("Lerntagebuch")) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.option_menu_tagebuch, menu);
+            return super.onCreateOptionsMenu(menu);
+        }
+        if (this.getTitle().equals("Notenübersicht")) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.option_menu_noten, menu);
+            return super.onCreateOptionsMenu(menu);
+        }
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.option_menu, menu); //your file name
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (this.getTitle().equals("Notenübersicht") || this.getTitle().toString().contains("Stundenplan") || this.getTitle().toString().equals("Lerntagebuch")) return false;
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        try {
+            if (item.getTitle() == null) return false;
+        }
+        catch (NullPointerException e) {
+            return false;
+        }
+        if (this.getTitle().toString().contains("Stundenplan")) return false;
+        if (this.getTitle().equals("Lerntagebuch") && item.getTitle().toString().equals("Hinzufügen")) {
+            Intent intent = new Intent(getApplicationContext(), EditActivity.class);
+            intent.putExtra(EXTRA_MESSAGE, this.getTitle());
+            startActivity(intent);
+        }
         if (item.getTitle().toString().equals("Bearbeiten") || item.getTitle().toString().equals("Löschen") || item.getTitle().toString().equals("Abbrechen")) {
             if (inEditMode) {
                 item.setTitle("Bearbeiten");
                 SparseBooleanArray checked = lview.getCheckedItemPositions();
+                ArrayList<String> checkedElements = new ArrayList<>();
                 for (int i = 0; i < lview.getCount(); i++) {
                     if (checked.get(i)) {
+                        checkedElements.add(lview.getItemAtPosition(i).toString());
                         if (lview.getItemAtPosition(i).toString().equals("Kein Eintrag!")) {
                             lview.clearChoices();
                             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, endliste);
@@ -349,7 +374,7 @@ public class ItemActivity extends AppCompatActivity {
                             inEditMode = false;
                             return super.onOptionsItemSelected(item);
                         }
-                        //endliste.remove(lview.getItemAtPosition(i).toString());
+                        //TODO alle For schleifen zu einer mergen 3 > 1 mit 3 bedingungen
                         if (this.getTitle().equals("Hausaufgabenübersicht")) {
                             for (int j = 0; j < lib.inhalt.get(4).size(); j++) {
                                 if (lview.getItemAtPosition(i).toString().contains(lib.inhalt.get(4).get(j))) {
@@ -366,9 +391,9 @@ public class ItemActivity extends AppCompatActivity {
                             for (int j = 0; j < lib.inhalt.get(7).size(); j++) {
                                 if (lview.getItemAtPosition(i).toString().contains(lib.inhalt.get(7).get(j))) {
                                     lib.inhalt.get(7).remove(j);
-                                    endliste.remove(i);
                                 }
                             }
+                            //endliste.remove(i);
                         } else if (this.getTitle().equals("Kommende Klausuren")) {
                             for (int j = 0; j < lib.inhalt.get(3).size(); j++) {
                                 if (lview.getItemAtPosition(i).toString().contains(lib.inhalt.get(3).get(j))) {
@@ -385,7 +410,6 @@ public class ItemActivity extends AppCompatActivity {
                             for (int j = 0; j < lib.inhalt.get(5).size(); j++) {
                                 if (lview.getItemAtPosition(i).toString().contains(lib.inhalt.get(5).get(j))) {
                                     lib.inhalt.get(5).remove(j);
-                                    endliste.remove(i);
                                 }
                             }
 
@@ -393,8 +417,12 @@ public class ItemActivity extends AppCompatActivity {
                         writeChanges();
 
                     }
-                    adapter.notifyDataSetChanged();
                 }
+                for (int i = checkedElements.size() - 1; i >= 0; i--) {
+                    endliste.remove(checkedElements.get(i));
+                }
+                endliste.add("Kein Eintrag!");
+                adapter.notifyDataSetChanged();
                 lview.clearChoices();
                 adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, endliste);
                 lview.setItemsCanFocus(true);
@@ -413,6 +441,11 @@ public class ItemActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), EditActivity.class);
             intent.putExtra(EXTRA_MESSAGE, this.getTitle());
             startActivity(intent);
+        } else if (item.getTitle().toString().equals("Zielpunktzahl bearbeiten")) {
+            Toast.makeText(getApplicationContext(), "Du möchtest also deine Ziele anpassen?", Toast.LENGTH_LONG).show();
+
+        } else if (item.getTitle().toString().equals("Aktuelle Punktzahl bearbeiten")) {
+            Toast.makeText(getApplicationContext(), "Du möchtest also deine aktuelle Punktzahl anpassen?", Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
     }

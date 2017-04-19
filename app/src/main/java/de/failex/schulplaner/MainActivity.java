@@ -1,13 +1,20 @@
 package de.failex.schulplaner;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -227,13 +234,16 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
 
         tb.fach.add("Mathe");
+        tb.fach.add("Deutsch");
         try {
+            tb.datum.add(dateFormat.parse(dateFormat.format(date)));
             tb.datum.add(dateFormat.parse(dateFormat.format(date)));
         }
         catch(ParseException e) {
             e.printStackTrace();
         }
         tb.text.add("Heute haben wir über Ortsvektoren gesprochen.");
+        tb.text.add("Heute haben wie die Lektüre 'Die Physiker' zu Ende besprochen");
         String string = gson.toJson(tb);
         FileOutputStream outputStream;
         try {
@@ -243,6 +253,41 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.option_menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getTitle().equals("Daten zurücksetzen")) {
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            File config = new File(getApplicationContext().getFilesDir(), "config.json");
+                            File tagebuch = new File(getApplicationContext().getFilesDir(), "tagebuch.json");
+                            config.delete();
+                            tagebuch.delete();
+                            finish();
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Bist du dir ganz sicher? Wenn du bestätigst werden deine Daten gelöscht und du kannst sie dann nicht mehr wiederherstellen!").setPositiveButton("Ja", dialogClickListener).setNegativeButton("Nein", dialogClickListener).show();
+        } else if (item.getTitle().equals("Über")) {
+            Toast.makeText(this, "Die Über-Activity kommt noch!", Toast.LENGTH_LONG).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
