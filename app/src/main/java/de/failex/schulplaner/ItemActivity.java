@@ -357,6 +357,7 @@ public class ItemActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), EditActivity.class);
             intent.putExtra(EXTRA_MESSAGE, this.getTitle());
             startActivity(intent);
+            finish();
         }
         if (item.getTitle().toString().equals("Bearbeiten") || item.getTitle().toString().equals("Löschen") || item.getTitle().toString().equals("Abbrechen")) {
             if (inEditMode) {
@@ -374,54 +375,34 @@ public class ItemActivity extends AppCompatActivity {
                             inEditMode = false;
                             return super.onOptionsItemSelected(item);
                         }
-                        //TODO alle For schleifen zu einer mergen 3 > 1 mit 3 bedingungen
                         if (this.getTitle().equals("Hausaufgabenübersicht")) {
                             for (int j = 0; j < lib.inhalt.get(4).size(); j++) {
-                                if (lview.getItemAtPosition(i).toString().contains(lib.inhalt.get(4).get(j))) {
+                                String currentitem = lview.getItemAtPosition(i).toString();
+                                if (currentitem.contains(lib.inhalt.get(4).get(j)) && currentitem.contains(lib.inhalt.get(8).get(j)) && currentitem.contains(lib.inhalt.get(7).get(j))) {
                                     lib.inhalt.get(4).remove(j);
-                                }
-                            }
-                            //DATEN
-                            for (int j = 0; j < lib.inhalt.get(8).size(); j++) {
-                                if (lview.getItemAtPosition(i).toString().contains(lib.inhalt.get(8).get(j))) {
                                     lib.inhalt.get(8).remove(j);
-                                }
-                            }
-                            //DATUM
-                            for (int j = 0; j < lib.inhalt.get(7).size(); j++) {
-                                if (lview.getItemAtPosition(i).toString().contains(lib.inhalt.get(7).get(j))) {
                                     lib.inhalt.get(7).remove(j);
                                 }
                             }
-                            //endliste.remove(i);
                         } else if (this.getTitle().equals("Kommende Klausuren")) {
+                            String currentitem = lview.getItemAtPosition(i).toString();
                             for (int j = 0; j < lib.inhalt.get(3).size(); j++) {
-                                if (lview.getItemAtPosition(i).toString().contains(lib.inhalt.get(3).get(j))) {
+                                if (currentitem.contains(lib.inhalt.get(3).get(j)) && currentitem.contains(lib.inhalt.get(6).get(j)) && currentitem.contains(lib.inhalt.get(5).get(j))){
                                     lib.inhalt.get(3).remove(j);
-                                }
-                            }
-                            //DATEN
-                            for (int j = 0; j < lib.inhalt.get(6).size(); j++) {
-                                if (lview.getItemAtPosition(i).toString().contains(lib.inhalt.get(6).get(j))) {
                                     lib.inhalt.get(6).remove(j);
-                                }
-                            }
-                            //DATUM
-                            for (int j = 0; j < lib.inhalt.get(5).size(); j++) {
-                                if (lview.getItemAtPosition(i).toString().contains(lib.inhalt.get(5).get(j))) {
                                     lib.inhalt.get(5).remove(j);
                                 }
                             }
-
                         }
                         writeChanges();
-
                     }
                 }
                 for (int i = checkedElements.size() - 1; i >= 0; i--) {
                     endliste.remove(checkedElements.get(i));
                 }
-                endliste.add("Kein Eintrag!");
+                if (checkedElements.size() > 0) {
+                    endliste.add("Kein Eintrag!");
+                }
                 adapter.notifyDataSetChanged();
                 lview.clearChoices();
                 adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, endliste);
@@ -441,6 +422,7 @@ public class ItemActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), EditActivity.class);
             intent.putExtra(EXTRA_MESSAGE, this.getTitle());
             startActivity(intent);
+            finish();
         } else if (item.getTitle().toString().equals("Zielpunktzahl bearbeiten")) {
             Toast.makeText(getApplicationContext(), "Du möchtest also deine Ziele anpassen?", Toast.LENGTH_LONG).show();
 
