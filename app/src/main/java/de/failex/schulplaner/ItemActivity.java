@@ -339,8 +339,16 @@ public class ItemActivity extends AppCompatActivity {
             inflater.inflate(R.menu.option_menu_noten, menu);
             return super.onCreateOptionsMenu(menu);
         }
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.option_menu, menu); //your file name
+
+        if (this.getTitle().equals("Kommende Klausuren") || this.getTitle().equals("Hausaufgabenübersicht")) {
+            if (this.lview.getCount() == 1 && this.lview.getItemAtPosition(0).toString().equals("Kein Eintrag!")) {
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.option_menu_no_edit, menu);
+            } else {
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.option_menu, menu);
+            }
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -354,10 +362,11 @@ public class ItemActivity extends AppCompatActivity {
         }
         if (this.getTitle().toString().contains("Stundenplan")) return false;
         if (this.getTitle().equals("Lerntagebuch") && item.getTitle().toString().equals("Hinzufügen")) {
-            Intent intent = new Intent(getApplicationContext(), EditActivity.class);
+            Intent intent = new Intent(getApplicationContext(),DiaryActivity.class);
             intent.putExtra(EXTRA_MESSAGE, this.getTitle());
             startActivity(intent);
             finish();
+            return false;
         }
         if (item.getTitle().toString().equals("Bearbeiten") || item.getTitle().toString().equals("Löschen") || item.getTitle().toString().equals("Abbrechen")) {
             if (inEditMode) {

@@ -34,7 +34,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.failex.schulplaner.MainActivity" />
         </activity>
-        <activity android:name=".TestActivity" android:parentActivityName=".MainActivity">></activity>
+        <activity
+            android:name=".TestActivity"
+            android:parentActivityName=".MainActivity">
+            >
+        </activity>
+        <activity android:name=".DiaryActivity"></activity>
     </application>
 
 </manifest>
