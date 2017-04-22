@@ -45,7 +45,7 @@ public class EditActivity extends AppCompatActivity {
 
         final EditText feld = (EditText) findViewById(R.id.editText5);
         final EditText datum = (EditText) findViewById(R.id.editText7);
-        final EditText fach = (EditText) findViewById(R.id.editText6);
+        final EditText fach = (EditText) findViewById(R.id.fachdiary);
 
         fach.requestFocus();
         if (message.equals("Hausaufgabenübersicht")) {
@@ -60,7 +60,7 @@ public class EditActivity extends AppCompatActivity {
             title = "KL";
         }
 
-        Button add = (Button) findViewById(R.id.button);
+        Button add = (Button) findViewById(R.id.adddiarybutton);
 
 
         File file = new File(this.getFilesDir(), "config.json");

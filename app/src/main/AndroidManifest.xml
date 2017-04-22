@@ -26,20 +26,7 @@
             android:name=".EditActivity"
             android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.failex.schulplaner.MainActivity" />
-        </activity>
-        <activity
-            android:name=".TestActivity"
-            android:parentActivityName=".MainActivity">
-            >
-        </activity>
-        <activity android:name=".DiaryActivity"></activity>
+        <activity android:name=".DiaryActivity" android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>
