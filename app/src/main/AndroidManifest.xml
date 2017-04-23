@@ -26,7 +26,10 @@
             android:name=".EditActivity"
             android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".DiaryActivity" android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".DiaryActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>

@@ -1,9 +1,11 @@
 package de.failex.schulplaner;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
@@ -13,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -194,139 +198,26 @@ public class ItemActivity extends AppCompatActivity {
                         dow = "undefined";
                     }
                 }
-                 try {
-                     String currTime = new SimpleDateFormat("HH:mm").format(new Date());
-                     String ersteStd = "08:00";
-                     String ersteStdVrb = "08:45";
-                     String zweiteStd = "08:50";
-                     String zweiteStdVrb = "09:35";
-                     String dritteStd = "09:40";
-                     String dritteStdVrb = "10:25";
-                     String vierteStd = "10:55";
-                     String vierteStdVrb = "11:40";
-                     String fuenfteStd = "11:45";
-                     String fuenfteStdVrb = "12:30";
-                     String sechsteStd = "12:35";
-                     String sechsteStdVrb = "13:20";
-                     String siebteStd = "13:40";
-                     String siebteStdVrb = "14:25";
-                     String achteStd = "14:30";
-                     String achteStdVrb = "15:15";
-                     String neunteStd = "15:15";
-                     String neunteStdVrb = "16:00";
-
-                     Date currTimed = new SimpleDateFormat("HH:mm").parse(currTime);
-                     Date time1 = new SimpleDateFormat("HH:mm").parse(ersteStd);
-                     Date time2 = new SimpleDateFormat("HH:mm").parse(ersteStdVrb);
-                     Date timezweite = new SimpleDateFormat("HH:mm").parse(zweiteStd);
-                     Date timezweitevrb = new SimpleDateFormat("HH:mm").parse(zweiteStdVrb);
-                     Date timedritte = new SimpleDateFormat("HH:mm").parse(dritteStd);
-                     Date timedrittevrb = new SimpleDateFormat("HH:mm").parse(dritteStdVrb);
-                     Date timevierte = new SimpleDateFormat("HH:mm").parse(vierteStd);
-                     Date timeviertevrb = new SimpleDateFormat("HH:mm").parse(vierteStdVrb);
-                     Date timefuenfte = new SimpleDateFormat("HH:mm").parse(fuenfteStd);
-                     Date timefuenftevrb = new SimpleDateFormat("HH:mm").parse(fuenfteStdVrb);
-                     Date timesechste = new SimpleDateFormat("HH:mm").parse(sechsteStd);
-                     Date timesechstevrb = new SimpleDateFormat("HH:mm").parse(sechsteStdVrb);
-                     Date timesiebte = new SimpleDateFormat("HH:mm").parse(siebteStd);
-                     Date timesiebtevrb = new SimpleDateFormat("HH:mm").parse(siebteStdVrb);
-                     Date timeachte = new SimpleDateFormat("HH:mm").parse(achteStd);
-                     Date timeachtevrb = new SimpleDateFormat("HH:mm").parse(achteStdVrb);
-                     Date timeneunte = new SimpleDateFormat("HH:mm").parse(neunteStd);
-                     Date timeneuntevrb = new SimpleDateFormat("HH:mm").parse(neunteStdVrb);
-
-
-
-                     java.util.Calendar cal3 = java.util.Calendar.getInstance();
-                     java.util.Calendar cal = java.util.Calendar.getInstance();
-                     java.util.Calendar cal2 = java.util.Calendar.getInstance();
-                     java.util.Calendar calzweite = java.util.Calendar.getInstance();
-                     java.util.Calendar caldritte = java.util.Calendar.getInstance();
-                     java.util.Calendar calvierte = java.util.Calendar.getInstance();
-                     java.util.Calendar calfuenfte = java.util.Calendar.getInstance();
-                     java.util.Calendar calsechste = java.util.Calendar.getInstance();
-                     java.util.Calendar calsiebte = java.util.Calendar.getInstance();
-                     java.util.Calendar calachte = java.util.Calendar.getInstance();
-                     java.util.Calendar calneunte = java.util.Calendar.getInstance();
-                     java.util.Calendar calzweitevrb = java.util.Calendar.getInstance();
-                     java.util.Calendar caldrittevrb = java.util.Calendar.getInstance();
-                     java.util.Calendar calviertevrb = java.util.Calendar.getInstance();
-                     java.util.Calendar calfuenftevrb = java.util.Calendar.getInstance();
-                     java.util.Calendar calsechstevrb = java.util.Calendar.getInstance();
-                     java.util.Calendar calsiebtevrb = java.util.Calendar.getInstance();
-                     java.util.Calendar calachtevrb = java.util.Calendar.getInstance();
-                     java.util.Calendar calneuntevrb = java.util.Calendar.getInstance();
-
-
-
-                     cal3.setTime(currTimed);
-                     cal.setTime(time1);
-                     cal2.setTime(time2);
-                     calzweite.setTime(timezweite);
-                     caldritte.setTime(timedritte);
-                     calvierte.setTime(timevierte);
-                     calfuenfte.setTime(timefuenfte);
-                     calsechste.setTime(timesechste);
-                     calsiebte.setTime(timesiebte);
-                     calachte.setTime(timeachte);
-                     calneunte.setTime(timeneunte);
-                     calzweitevrb.setTime(timezweitevrb);
-                     caldrittevrb.setTime(timedrittevrb);
-                     calviertevrb.setTime(timeviertevrb);
-                     calfuenftevrb.setTime(timefuenftevrb);
-                     calsechstevrb.setTime(timesechstevrb);
-                     calsiebtevrb.setTime(timesiebtevrb);
-                     calachtevrb.setTime(timeachtevrb);
-                     calneuntevrb.setTime(timeneuntevrb);
-
-
-
-                     cal2.add(java.util.Calendar.DATE, 1);
-                     cal3.add(java.util.Calendar.DATE, 1);
-                     calzweite.add(java.util.Calendar.DATE, 1);
-                     caldritte.add(java.util.Calendar.DATE, 1);
-                     calvierte.add(java.util.Calendar.DATE, 1);
-                     calfuenfte.add(java.util.Calendar.DATE, 1);
-                     calsechste.add(java.util.Calendar.DATE, 1);
-                     calsiebte.add(java.util.Calendar.DATE, 1);
-                     calachte.add(java.util.Calendar.DATE, 1);
-                     calneunte.add(java.util.Calendar.DATE, 1);
-                     calzweitevrb.add(java.util.Calendar.DATE, 1);
-                     caldrittevrb.add(java.util.Calendar.DATE, 1);
-                     calviertevrb.add(java.util.Calendar.DATE, 1);
-                     calfuenftevrb.add(java.util.Calendar.DATE, 1);
-                     calsechstevrb.add(java.util.Calendar.DATE, 1);
-                     calsiebtevrb.add(java.util.Calendar.DATE, 1);
-                     calachtevrb.add(java.util.Calendar.DATE, 1);
-                     calneuntevrb.add(java.util.Calendar.DATE, 1);
-
-
-                     Date neu = cal3.getTime();
-
-                     if (neu.after(cal.getTime()) && neu.before(cal2.getTime())) {
+                int currentclass = ClassTimeHandler.getCurrentClass();
+                     if (currentclass == 1) {
                          endliste.set(0, endliste.get(0) + "   <------");
-                     } else if (neu.after(calzweite.getTime()) && neu.before(calzweitevrb.getTime())) {
+                     } else if (currentclass == 2) {
                          endliste.set(1, endliste.get(1) + "   <------");
-                     } else if (neu.after(caldritte.getTime()) && neu.before(caldrittevrb.getTime())) {
+                     } else if (currentclass == 3) {
                          endliste.set(2, endliste.get(2) + "   <------");
-                     } else if (neu.after(calvierte.getTime()) && neu.before(calviertevrb.getTime())) {
+                     } else if (currentclass == 4) {
                          endliste.set(3, endliste.get(3) + "   <------");
-                     } else if (neu.after(calfuenfte.getTime()) && neu.before(calfuenftevrb.getTime())) {
+                     } else if (currentclass == 5) {
                          endliste.set(4, endliste.get(4) + "   <------");
-                     } else if (neu.after(calsechste.getTime()) && neu.before(calsechstevrb.getTime())) {
+                     } else if (currentclass == 6) {
                          endliste.set(5, endliste.get(5) + "   <------");
-                     } else if (neu.after(calsiebte.getTime()) && neu.before(calsiebtevrb.getTime())) {
+                     } else if (currentclass == 7) {
                          endliste.set(6, endliste.get(6) + "   <------");
-                     } else if (neu.after(calachte.getTime()) && neu.before(calachtevrb.getTime())) {
+                     } else if (currentclass == 8) {
                          endliste.set(7, endliste.get(7) + "   <------");
-                     } else if (neu.after(calneunte.getTime()) && neu.before(calneuntevrb.getTime())) {
+                     } else if (currentclass == 9) {
                          endliste.set(8, endliste.get(8) + "   <------");
                      }
-
-                 }
-                 catch(ParseException e) {
-                     e.printStackTrace();
-                 }
                 break;
             case "Klausuren":
                 this.setTitle("Kommende Klausuren");
@@ -511,10 +402,32 @@ public class ItemActivity extends AppCompatActivity {
         }
         if (this.getTitle().toString().contains("Stundenplan")) return false;
         if (this.getTitle().equals("Lerntagebuch") && item.getTitle().toString().equals("Hinzufügen")) {
-            Intent intent = new Intent(getApplicationContext(),DiaryActivity.class);
-            intent.putExtra(EXTRA_MESSAGE, this.getTitle());
-            startActivity(intent);
-            finish();
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            final EditText edittext = new EditText(this);
+            alert.setMessage("Dein Eintrag für die " + ClassTimeHandler.getCurrentClass() + ". Stunde");
+            alert.setTitle("Eintrag hinzufügen");
+
+            alert.setView(edittext);
+
+            alert.setPositiveButton("Hinzufügen", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    String msg = edittext.getText().toString();
+                    if (msg.isEmpty()) return;
+                    finish();
+                }
+            });
+
+            alert.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    dialog.cancel();
+                }
+            });
+
+            alert.show();
+            //Intent intent = new Intent(getApplicationContext(),DiaryActivity.class);
+            //intent.putExtra(EXTRA_MESSAGE, this.getTitle());
+            //startActivity(intent);
+            //finish();
             return false;
         }
         if (item.getTitle().toString().equals("Bearbeiten") || item.getTitle().toString().equals("Löschen") || item.getTitle().toString().equals("Abbrechen")) {

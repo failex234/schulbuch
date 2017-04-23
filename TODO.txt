@@ -2,8 +2,6 @@
 - Noten bearbeiten (Menü ist bereits erstellt)
 - Querformat nochmal in Angriff nehmen
 - Notifications (z.B Abend vor Abgabe der Hausuafgabe wird noch mal daran erinnert; Morgen schreibst du die Klausur XX, du solltest nochmal lernen; Nächste Woche wird Klausur XX geschreiben, fang doch schonmal langsam an zu lernen; Du hast gleich eine Doppelstunde XX oder in der nächsten Stunde hast du XX !!Aber auch nur evtl, da ich meinen Stundenplan eigentlich gut auswendig kenne!!)
-- Evtl. eine Art Lerntagebuch bzw. Notierung der Themen einer Stunde
 - ÜberActivity erstellen: MainActivity-Menü > Über > Über-Activity
-- Lerntagebucheinträge hinzufügen
 - mehr
 
