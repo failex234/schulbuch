@@ -297,7 +297,8 @@ public class ItemActivity extends AppCompatActivity {
                     }
 
                     if (fachempty || datumempty || textempty) {
-                        Toast.makeText(getApplicationContext(), "FEHLER! Die Listen sind unterschiedlich groß!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "FEHLER! Es befindet sich ein leeres Element in einer Liste!", Toast.LENGTH_LONG).show();
+                        finish();
                         return;
                     }
 
