@@ -57,7 +57,7 @@ public class DiaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                if (msg.getText().toString().isEmpty() || fach.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Alle Felder ausfüllen!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Bitte alle Felder ausfüllen!", Toast.LENGTH_LONG).show();
                } else {
                     lib.fach.add(fach.getText().toString());
                 lib.text.add(msg.getText().toString());

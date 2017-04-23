@@ -283,10 +283,24 @@ public class ItemActivity extends AppCompatActivity {
 
 
                 ArrayList<String> fach = tb.fach;
+                boolean fachempty = false;
                 ArrayList<Date> datum = tb.datum;
+                boolean datumempty = false;
                 ArrayList<String> text = tb.text;
+                boolean textempty = false;
 
                 if (fach.size() == datum.size() && datum.size() == text.size()) {
+                    for (int i = 0; i < fach.size(); i++) {
+                        if (datum.get(i) == null) datumempty = true;
+                        if (fach.get(i).isEmpty()) fachempty = true;
+                        if (text.get(i).isEmpty()) textempty = true;
+                    }
+
+                    if (fachempty || datumempty || textempty) {
+                        Toast.makeText(getApplicationContext(), "FEHLER! Die Listen sind unterschiedlich groß!", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
                     for (int i = 0; i < fach.size(); i++) {
                         DateFormat dateFormat = new SimpleDateFormat("dd.MM HH:mm");
                         Date date = datum.get(i);
