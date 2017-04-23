@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -193,6 +194,36 @@ public class ItemActivity extends AppCompatActivity {
                         dow = "undefined";
                     }
                 }
+                 try {
+                     //Proof of Concept
+                     //TODO continue for other times
+                     String ersteStd = "08:00";
+                     Date time1 = new SimpleDateFormat("HH:mm").parse(ersteStd);
+                     java.util.Calendar cal = java.util.Calendar.getInstance();
+                     cal.setTime(time1);
+
+                     String ersteStdVrb = "08:45";
+                     Date time2 = new SimpleDateFormat("HH:mm").parse(ersteStdVrb);
+                     java.util.Calendar cal2 = java.util.Calendar.getInstance();
+                     cal2.setTime(time2);
+                     cal2.add(java.util.Calendar.DATE, 1);
+
+                     String currTime = new SimpleDateFormat("HH:mm").format(new Date());
+                     Date currTimed = new SimpleDateFormat("HH:mm").parse(currTime);
+                     java.util.Calendar cal3 = java.util.Calendar.getInstance();
+                     cal3.setTime(currTimed);
+                     cal3.add(java.util.Calendar.DATE, 1);
+
+                     Date neu = cal3.getTime();
+
+                     if (neu.after(cal.getTime()) && neu.before(cal2.getTime())) {
+                         //TODO
+                     }
+
+                 }
+                 catch(ParseException e) {
+                     e.printStackTrace();
+                 }
                 break;
             case "Klausuren":
                 this.setTitle("Kommende Klausuren");
