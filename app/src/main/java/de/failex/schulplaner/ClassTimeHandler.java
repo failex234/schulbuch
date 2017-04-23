@@ -2,6 +2,7 @@ package de.failex.schulplaner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -53,7 +54,6 @@ public class ClassTimeHandler {
             Date timeneuntevrb = new SimpleDateFormat("HH:mm").parse(neunteStdVrb);
 
 
-
             java.util.Calendar cal3 = java.util.Calendar.getInstance();
             java.util.Calendar cal = java.util.Calendar.getInstance();
             java.util.Calendar cal2 = java.util.Calendar.getInstance();
@@ -75,7 +75,6 @@ public class ClassTimeHandler {
             java.util.Calendar calneuntevrb = java.util.Calendar.getInstance();
 
 
-
             cal3.setTime(currTimed);
             cal.setTime(time1);
             cal2.setTime(time2);
@@ -95,7 +94,6 @@ public class ClassTimeHandler {
             calsiebtevrb.setTime(timesiebtevrb);
             calachtevrb.setTime(timeachtevrb);
             calneuntevrb.setTime(timeneuntevrb);
-
 
 
             cal2.add(java.util.Calendar.DATE, 1);
@@ -140,10 +138,60 @@ public class ClassTimeHandler {
                 return 9;
             }
 
-        }
-        catch(ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    public static String getClassName(int classnumber, int dayofweek) {
+        switch (dayofweek) {
+            case Calendar.MONDAY:
+                if (classnumber == 1 || classnumber == 2) return "Religion";
+                if (classnumber == 3 || classnumber == 4) return  "Pädagogik";
+                if (classnumber == 5 || classnumber == 6) return "Sport";
+                if (classnumber == 7) return "Englisch";
+                if (classnumber == 8) return "Informatik";
+                if (classnumber == 9) return "Geschichte";
+                break;
+            case Calendar.TUESDAY:
+                if (classnumber == 1 || classnumber == 2) return "Mathematik";
+                if (classnumber == 3 || classnumber == 4) return  "Englisch";
+                if (classnumber == 5 || classnumber == 6) return "Deutsch";
+                if (classnumber == 7) return "none";
+                if (classnumber == 8) return "Musik";
+                if (classnumber == 9) return "none";
+                break;
+            case Calendar.WEDNESDAY:
+                if (classnumber == 1 || classnumber == 2) return "Musik";
+                if (classnumber == 3 || classnumber == 4) return  "Geschichte";
+                if (classnumber == 5 || classnumber == 6) return "Biologie";
+                if (classnumber == 7) return "none";
+                if (classnumber == 8) return "Mathematik";
+                if (classnumber == 9) return "Pädagogik";
+                break;
+            case Calendar.THURSDAY:
+                if (classnumber == 1 || classnumber == 2) return "Informatik";
+                if (classnumber == 3 || classnumber == 4) return  "Geschichte";
+                if (classnumber == 5) return "Sport";
+                if (classnumber == 6) return "Sozialwissenschaften";
+                if (classnumber == 7) return "Deutsch";
+                if (classnumber == 8) return "none";
+                if (classnumber == 9) return "Biologie";
+                break;
+            case Calendar.FRIDAY:
+                if (classnumber == 1) return "none";
+                if (classnumber == 2 || classnumber == 3) return "Sozialwissenschaften";
+                if (classnumber == 4 || classnumber == 5) return "Englisch";
+                if (classnumber == 6) return "none";
+                if (classnumber == 7) return "Religion";
+                if (classnumber == 8) return "none";
+                if (classnumber == 9) return "none";
+                break;
+            default:
+                return "none";
+
+        }
+        return "none";
     }
 }

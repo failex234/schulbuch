@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         File tbuch = new File(this.getFilesDir(), "tagebuch.json");
 
         if (!tbuch.exists()) {
-            createTagebuch();
+            //createTagebuch();
         }
 
         if (!file.exists()) {
@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        createTagebuch();
+       // createTagebuch();
     }
 
     public void createTagebuch() {

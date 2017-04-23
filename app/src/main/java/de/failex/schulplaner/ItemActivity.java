@@ -44,6 +44,7 @@ public class ItemActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ListView lview;
     MenuItem item;
+    Tagebuch tb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +69,12 @@ public class ItemActivity extends AppCompatActivity {
                 line = br.readLine();
             }
             br.close();
-        }
-        catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
 
         }
         lib = gson.fromJson(end.toString(), Library.class);
-        switch(message) {
+        switch (message) {
             case "Noten":
                 this.setTitle("Notenübersicht");
                 ArrayList<String> aktuell = lib.inhalt.get(0);
@@ -84,23 +84,23 @@ public class ItemActivity extends AppCompatActivity {
                         endliste.add("Religion: " + aktuell.get(1) + "/" + ziel.get(1));
                     } else if (i == 2) {
                         endliste.add("Pädagogik: " + aktuell.get(2) + "/" + ziel.get(2));
-                    }else if (i == 3) {
+                    } else if (i == 3) {
                         endliste.add("Sport: " + aktuell.get(3) + "/" + ziel.get(3));
-                    }else if (i == 4) {
+                    } else if (i == 4) {
                         endliste.add("Englisch: " + aktuell.get(4) + "/" + ziel.get(4));
-                    }else if (i == 5) {
+                    } else if (i == 5) {
                         endliste.add("Informatik: " + aktuell.get(5) + "/" + ziel.get(5));
-                    }else if (i == 6) {
+                    } else if (i == 6) {
                         endliste.add("Geschichte: " + aktuell.get(6) + "/" + ziel.get(6));
-                    }else if (i == 7) {
+                    } else if (i == 7) {
                         endliste.add("Mathe: " + aktuell.get(7) + "/" + ziel.get(7));
-                    }else if (i == 8) {
+                    } else if (i == 8) {
                         endliste.add("Deutsch: " + aktuell.get(8) + "/" + ziel.get(8));
-                    }else if (i == 9) {
+                    } else if (i == 9) {
                         endliste.add("Musik: " + aktuell.get(9) + "/" + ziel.get(9));
-                    }else if (i == 10) {
+                    } else if (i == 10) {
                         endliste.add("Bio: " + aktuell.get(10) + "/" + ziel.get(10));
-                    }else if (i == 11) {
+                    } else if (i == 11) {
                         endliste.add("SoWi: " + aktuell.get(11) + "/" + ziel.get(11));
                     }
                 }
@@ -109,34 +109,34 @@ public class ItemActivity extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 int day = calendar.get(Calendar.DAY_OF_WEEK);
                 ArrayList<String> plan = lib.inhalt.get(2);
-                switch(day) {
+                switch (day) {
                     case Calendar.SUNDAY:
                         this.setTitle("Stundenplan - Sonntag");
-                        dow ="Sonntag";
+                        dow = "Sonntag";
                         break;
                     case Calendar.MONDAY:
                         this.setTitle("Stundenplan - Montag");
-                        dow ="Montag";
+                        dow = "Montag";
                         break;
                     case Calendar.TUESDAY:
                         this.setTitle("Stundenplan - Dienstag");
-                        dow ="Dienstag";
+                        dow = "Dienstag";
                         break;
                     case Calendar.WEDNESDAY:
                         this.setTitle("Stundenplan - Mittwoch");
-                        dow ="Mittwoch";
+                        dow = "Mittwoch";
                         break;
                     case Calendar.THURSDAY:
                         this.setTitle("Stundenplan - Donnerstag");
-                        dow ="Donnerstag";
+                        dow = "Donnerstag";
                         break;
                     case Calendar.FRIDAY:
                         this.setTitle("Stundenplan - Freitag");
-                        dow ="Freitag";
+                        dow = "Freitag";
                         break;
                     case Calendar.SATURDAY:
                         this.setTitle("Stundenplan - Samstag");
-                        dow ="Samstag";
+                        dow = "Samstag";
                         break;
                 }
                 for (int i = 0; i < plan.size(); i++) {
@@ -199,25 +199,25 @@ public class ItemActivity extends AppCompatActivity {
                     }
                 }
                 int currentclass = ClassTimeHandler.getCurrentClass();
-                     if (currentclass == 1) {
-                         endliste.set(0, endliste.get(0) + "   <------");
-                     } else if (currentclass == 2) {
-                         endliste.set(1, endliste.get(1) + "   <------");
-                     } else if (currentclass == 3) {
-                         endliste.set(2, endliste.get(2) + "   <------");
-                     } else if (currentclass == 4) {
-                         endliste.set(3, endliste.get(3) + "   <------");
-                     } else if (currentclass == 5) {
-                         endliste.set(4, endliste.get(4) + "   <------");
-                     } else if (currentclass == 6) {
-                         endliste.set(5, endliste.get(5) + "   <------");
-                     } else if (currentclass == 7) {
-                         endliste.set(6, endliste.get(6) + "   <------");
-                     } else if (currentclass == 8) {
-                         endliste.set(7, endliste.get(7) + "   <------");
-                     } else if (currentclass == 9) {
-                         endliste.set(8, endliste.get(8) + "   <------");
-                     }
+                if (currentclass == 1) {
+                    endliste.set(0, endliste.get(0) + "   <------");
+                } else if (currentclass == 2) {
+                    endliste.set(1, endliste.get(1) + "   <------");
+                } else if (currentclass == 3) {
+                    endliste.set(2, endliste.get(2) + "   <------");
+                } else if (currentclass == 4) {
+                    endliste.set(3, endliste.get(3) + "   <------");
+                } else if (currentclass == 5) {
+                    endliste.set(4, endliste.get(4) + "   <------");
+                } else if (currentclass == 6) {
+                    endliste.set(5, endliste.get(5) + "   <------");
+                } else if (currentclass == 7) {
+                    endliste.set(6, endliste.get(6) + "   <------");
+                } else if (currentclass == 8) {
+                    endliste.set(7, endliste.get(7) + "   <------");
+                } else if (currentclass == 9) {
+                    endliste.set(8, endliste.get(8) + "   <------");
+                }
                 break;
             case "Klausuren":
                 this.setTitle("Kommende Klausuren");
@@ -246,7 +246,7 @@ public class ItemActivity extends AppCompatActivity {
                     for (int i = 0; i < datumklausuren.size(); i++) {
                         dmhas += datumklausuren.get(i);
                     }
-                    Toast.makeText(getApplicationContext(),"Klausuren: " + has, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Klausuren: " + has, Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), "Daten " + dnhas, Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), "Datum" + dmhas, Toast.LENGTH_LONG).show();
                     finish();
@@ -279,7 +279,7 @@ public class ItemActivity extends AppCompatActivity {
                     for (int i = 0; i < datumhausaufgaben.size(); i++) {
                         dmhas += hausaufgaben.get(i);
                     }
-                    Toast.makeText(getApplicationContext(),"Hausaufgaben: " + has, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Hausaufgaben: " + has, Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), "Daten " + dnhas, Toast.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(), "Datum" + dmhas, Toast.LENGTH_LONG).show();
                     finish();
@@ -299,20 +299,29 @@ public class ItemActivity extends AppCompatActivity {
                         line = br.readLine();
                     }
                     br.close();
-                }
-                catch(IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
 
                 }
-                Tagebuch tb = gs.fromJson(en.toString(), Tagebuch.class);
-
-
-                ArrayList<String> fach = tb.fach;
+                tb = gs.fromJson(en.toString(), Tagebuch.class);
+                ArrayList<String> fach = null;
                 boolean fachempty = false;
-                ArrayList<Date> datum = tb.datum;
+                ArrayList<Date> datum = null;
                 boolean datumempty = false;
-                ArrayList<String> text = tb.text;
+                ArrayList<String> text = null;
                 boolean textempty = false;
+                try {
+                    fach = tb.fach;
+                    fachempty = false;
+                    datum = tb.datum;
+                    datumempty = false;
+                    text = tb.text;
+                    textempty = false;
+                } catch (NullPointerException e) {
+                    endliste.add("Kein Eintrag!");
+                    break;
+                }
+
 
                 if (fach.size() == datum.size() && datum.size() == text.size()) {
                     for (int i = 0; i < fach.size(); i++) {
@@ -334,6 +343,7 @@ public class ItemActivity extends AppCompatActivity {
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "FEHLER! Die Listen sind unterschiedlich groß!", Toast.LENGTH_LONG).show();
+                    finish();
                 }
                 break;
         }
@@ -346,7 +356,7 @@ public class ItemActivity extends AppCompatActivity {
                 SparseBooleanArray liste = lview.getCheckedItemPositions();
                 int counter = 0;
                 if (liste != null) {
-                    for (int i = 0; i  < liste.size(); i++) {
+                    for (int i = 0; i < liste.size(); i++) {
                         if (liste.get(liste.keyAt(i))) {
                             counter++;
                         }
@@ -396,15 +406,23 @@ public class ItemActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         try {
             if (item.getTitle() == null) return false;
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             return false;
         }
         if (this.getTitle().toString().contains("Stundenplan")) return false;
         if (this.getTitle().equals("Lerntagebuch") && item.getTitle().toString().equals("Hinzufügen")) {
+            if (java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == java.util.Calendar.SUNDAY || java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK) == java.util.Calendar.SATURDAY) {
+                Toast.makeText(this, "Da heute kein Schultag ist, kannst du keinen Eintrag hinzufügen!", Toast.LENGTH_LONG).show();
+                return false;
+            }
+            final String currentclass = ClassTimeHandler.getClassName(ClassTimeHandler.getCurrentClass(), java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_WEEK));
+            if (currentclass.equals("none")) {
+                Toast.makeText(this, "Da du gerade keinen Unterricht hast, kannst du auch keinen Eintrag verfassen!", Toast.LENGTH_LONG).show();
+                return false;
+            }
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             final EditText edittext = new EditText(this);
-            alert.setMessage("Dein Eintrag für die " + ClassTimeHandler.getCurrentClass() + ". Stunde");
+            alert.setMessage("Dein Eintrag für die " + ClassTimeHandler.getCurrentClass() + ". Stunde (" + currentclass + ")");
             alert.setTitle("Eintrag hinzufügen");
 
             alert.setView(edittext);
@@ -413,8 +431,29 @@ public class ItemActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     String msg = edittext.getText().toString();
                     if (msg.isEmpty()) return;
+                    DateFormat dateFormat = new SimpleDateFormat("dd.MM HH:mm");
+                    Date date = new Date();
+                    Gson gson = new Gson();
+
+                    tb.fach.add(currentclass);
+                    try {
+                        tb.datum.add(dateFormat.parse(dateFormat.format(date)));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    tb.text.add(msg);
+                    String string = gson.toJson(tb);
+                    FileOutputStream outputStream;
+                    try {
+                        outputStream = openFileOutput("tagebuch.json", Context.MODE_PRIVATE);
+                        outputStream.write(string.getBytes());
+                        outputStream.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     finish();
                 }
+
             });
 
             alert.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
@@ -458,7 +497,7 @@ public class ItemActivity extends AppCompatActivity {
                         } else if (this.getTitle().equals("Kommende Klausuren")) {
                             String currentitem = lview.getItemAtPosition(i).toString();
                             for (int j = 0; j < lib.inhalt.get(3).size(); j++) {
-                                if (currentitem.contains(lib.inhalt.get(3).get(j)) && currentitem.contains(lib.inhalt.get(6).get(j)) && currentitem.contains(lib.inhalt.get(5).get(j))){
+                                if (currentitem.contains(lib.inhalt.get(3).get(j)) && currentitem.contains(lib.inhalt.get(6).get(j)) && currentitem.contains(lib.inhalt.get(5).get(j))) {
                                     lib.inhalt.get(3).remove(j);
                                     lib.inhalt.get(6).remove(j);
                                     lib.inhalt.get(5).remove(j);
