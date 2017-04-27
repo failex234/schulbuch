@@ -510,7 +510,7 @@ public class ItemActivity extends AppCompatActivity {
                 for (int i = checkedElements.size() - 1; i >= 0; i--) {
                     endliste.remove(checkedElements.get(i));
                 }
-                if (checkedElements.size() > 0) {
+                if (checkedElements.size() > 0 && endliste.size() == 0) {
                     endliste.add("Kein Eintrag!");
                 }
                 adapter.notifyDataSetChanged();
