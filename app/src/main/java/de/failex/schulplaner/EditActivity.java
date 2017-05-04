@@ -99,6 +99,23 @@ public class EditActivity extends AppCompatActivity {
                 if (title.equals("KL")) {
                     Date date;
                     DateFormat format;
+
+                    String[] datecheck = datum.getText().toString().split(".");
+
+                    if (datecheck.length != 2) {
+                        Toast.makeText(getApplicationContext(), "Du hast ein ungültiges Datum angegeben!", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else if (Integer.parseInt(datecheck[1]) > 12) {
+                        Toast.makeText(getApplicationContext(), "Diesen Monat gibt es nicht! Bitte überprüfe deine Eingabe", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else if (Integer.parseInt(datecheck[0]) > 31) {
+                        Toast.makeText(getApplicationContext(), "Diesen Tag gibt es nicht! Bitte überprüfe deine Eingabe", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else if (Integer.parseInt(datecheck[0]) > 29 && Integer.parseInt(datecheck[1]) == 2) {
+                        Toast.makeText(getApplicationContext(), "Diesen Tag gibt es nicht! Bitte überprüfe deine Eingabe", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     try {
                         format = new SimpleDateFormat("dd.MM", Locale.GERMAN);
                         date = format.parse(datum.getText().toString());

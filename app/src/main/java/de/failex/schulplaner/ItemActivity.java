@@ -440,6 +440,7 @@ public class ItemActivity extends AppCompatActivity {
                         tb = new Tagebuch();
                         tb.fach.add(currentclass);
                     }
+
                     try {
                         tb.datum.add(dateFormat.parse(dateFormat.format(date)));
                     } catch (ParseException e) {
