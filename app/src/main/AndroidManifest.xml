@@ -29,7 +29,10 @@
         <activity
             android:name=".DiaryActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".AboutActivity"></activity>
+
+        <activity
+            android:name=".AboutActivity"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

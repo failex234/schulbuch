@@ -285,7 +285,8 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Bist du dir ganz sicher? Wenn du bestätigst werden deine Daten gelöscht und du kannst sie dann nicht mehr wiederherstellen!").setPositiveButton("Ja", dialogClickListener).setNegativeButton("Nein", dialogClickListener).show();
         } else if (item.getTitle().equals("Über")) {
-            Toast.makeText(this, "Die Über-Activity kommt noch!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
