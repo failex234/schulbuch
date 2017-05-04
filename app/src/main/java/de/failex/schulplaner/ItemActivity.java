@@ -560,4 +560,59 @@ public class ItemActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (endliste != null) {
+            File file = new File(this.getFilesDir(), "config.json");
+            Gson gson = new Gson();
+            StringBuilder end = new StringBuilder();
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String line = br.readLine();
+
+                while (line != null) {
+                    end.append(line);
+                    line = br.readLine();
+                }
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+            lib = gson.fromJson(end.toString(), Library.class);
+            switch (getTitle().toString()) {
+                case "Kommende Klausuren":
+                    ArrayList<String> klausuren = lib.inhalt.get(3);
+                    ArrayList<String> datenklausuren = lib.inhalt.get(6);
+                    ArrayList<String> datumklausuren = lib.inhalt.get(5);
+                    if (klausuren.size() == datenklausuren.size() && datenklausuren.size() == datumklausuren.size()) {
+                        endliste = new ArrayList<>();
+                        for (int i = 1; i < klausuren.size(); i++) {
+                            endliste.add(klausuren.get(i) + " am " + datumklausuren.get(i) + " in " + datenklausuren.get(i));
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                    break;
+                case "Hausaufgabenübersicht":
+                    ArrayList<String> hausaufgaben = lib.inhalt.get(4);
+                    ArrayList<String> datenhausaufgaben = lib.inhalt.get(8);
+                    ArrayList<String> datumhausaufgaben = lib.inhalt.get(7);
+                    if (hausaufgaben.size() == datenhausaufgaben.size() && datenhausaufgaben.size() == datumhausaufgaben.size()) {
+                        endliste = new ArrayList<>();
+                    }
+                        if (hausaufgaben.size() > 1) {
+                            for (int i = 1; i < hausaufgaben.size(); i++) {
+                                endliste.add(hausaufgaben.get(i) + " für den " + datumhausaufgaben.get(i) + ": " + datenhausaufgaben.get(i));
+                            }
+                        } else {
+                            endliste.add("Kein Eintrag!");
+                        }
+                    adapter.notifyDataSetChanged();
+                    break;
+
+            }
+        }
+    }
 }
