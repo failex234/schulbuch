@@ -434,8 +434,12 @@ public class ItemActivity extends AppCompatActivity {
                     DateFormat dateFormat = new SimpleDateFormat("dd.MM HH:mm");
                     Date date = new Date();
                     Gson gson = new Gson();
-
-                    tb.fach.add(currentclass);
+                    try {
+                        tb.fach.add(currentclass);
+                    } catch (NullPointerException e) {
+                        tb = new Tagebuch();
+                        tb.fach.add(currentclass);
+                    }
                     try {
                         tb.datum.add(dateFormat.parse(dateFormat.format(date)));
                     } catch (ParseException e) {
