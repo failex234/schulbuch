@@ -201,6 +201,9 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> tagebuch = new ArrayList<>();
         tagebuch.add("Lerntagebuch");
 
+        ArrayList<String> referate = new ArrayList<>();
+        referate.add("Referate");
+
 
         lib.inhalt = list1;
         lib.inhalt.add(notenaktuell); //Index 0
@@ -213,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
         lib.inhalt.add(datumhausaufgaben); //Index 7
         lib.inhalt.add(datenhausuafgaben); //Index 8
         lib.inhalt.add(tagebuch); //Index 9
+        lib.inhalt.add(referate); //Index 10
         Gson gson = new Gson();
 
         String string = gson.toJson(lib);

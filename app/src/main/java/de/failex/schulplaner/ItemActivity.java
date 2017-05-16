@@ -45,6 +45,7 @@ public class ItemActivity extends AppCompatActivity {
     ListView lview;
     MenuItem item;
     Tagebuch tb;
+    Referate refe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -346,6 +347,41 @@ public class ItemActivity extends AppCompatActivity {
                     finish();
                 }
                 break;
+            case "Referate":
+                this.setTitle("Referatsübersicht");
+                File ref = new File(this.getFilesDir(), "referate.json");
+                Gson gso = new Gson();
+                StringBuilder sb = new StringBuilder();
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader(ref));
+                    String line = br.readLine();
+
+                    while (line != null) {
+                        sb.append(line);
+                        line = br.readLine();
+                    }
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+                refe = gso.fromJson(sb.toString(), Referate.class);
+                ArrayList<String> reffach = null;
+                ArrayList<Date> refdatum = null;
+                ArrayList<String> refthema = null;
+                try {
+                    reffach = refe.fach;
+                    refdatum = refe.datum;
+                    refthema = refe.thema;
+
+                    for (int i = 1; i < reffach.size(); i++) {
+                        endliste.add(reffach.get(i) + ": " + refthema.get(i) + " für den  " + refdatum.get(i));
+                    }
+                } catch (NullPointerException e) {
+                    endliste.add("Kein Eintrag!");
+                    break;
+                }
+                break;
         }
 
         lview = (ListView) findViewById(R.id.listView);
@@ -390,7 +426,7 @@ public class ItemActivity extends AppCompatActivity {
             return super.onCreateOptionsMenu(menu);
         }
 
-        if (this.getTitle().equals("Kommende Klausuren") || this.getTitle().equals("Hausaufgabenübersicht")) {
+        if (this.getTitle().equals("Kommende Klausuren") || this.getTitle().equals("Hausaufgabenübersicht") || this.getTitle().equals("Referatsübersicht")) {
             if (this.lview.getCount() == 1 && this.lview.getItemAtPosition(0).toString().equals("Kein Eintrag!")) {
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.option_menu_no_edit, menu);
@@ -508,44 +544,55 @@ public class ItemActivity extends AppCompatActivity {
                                     lib.inhalt.get(5).remove(j);
                                 }
                             }
+                        } else if (this.getTitle().equals("Referatsübersicht")) {
+                            for (int j = 0; j < refe.thema.size(); j++) {
+                                String currentitem = lview.getItemAtPosition(i).toString();
+                                if (currentitem.contains(refe.thema.get(j)) && currentitem.contains(refe.datum.get(j).toString()) && currentitem.contains(refe.fach.get(j))) {
+                                    refe.thema.remove(j);
+                                    refe.datum.remove(j);
+                                    refe.fach.remove(j);
+                                }
+                            }
+                            writeChanges();
                         }
-                        writeChanges();
                     }
                 }
-                for (int i = checkedElements.size() - 1; i >= 0; i--) {
-                    endliste.remove(checkedElements.get(i));
+                    for (int i = checkedElements.size() - 1; i >= 0; i--) {
+                        endliste.remove(checkedElements.get(i));
+                    }
+                    if (checkedElements.size() > 0 && endliste.size() == 0) {
+                        endliste.add("Kein Eintrag!");
+                    }
+                    adapter.notifyDataSetChanged();
+                    lview.clearChoices();
+                    adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, endliste);
+                    lview.setItemsCanFocus(true);
+                    lview.setAdapter(adapter);
+                    inEditMode = false;
+                } else {
+                    item.setTitle("Abbrechen");
+                    this.item = item;
+                    adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, endliste);
+                    lview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                    lview.setItemsCanFocus(false);
+                    lview.setAdapter(adapter);
+                    inEditMode = true;
                 }
-                if (checkedElements.size() > 0 && endliste.size() == 0) {
-                    endliste.add("Kein Eintrag!");
-                }
-                adapter.notifyDataSetChanged();
-                lview.clearChoices();
-                adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, endliste);
-                lview.setItemsCanFocus(true);
-                lview.setAdapter(adapter);
-                inEditMode = false;
-            } else {
-                item.setTitle("Abbrechen");
-                this.item = item;
-                adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, endliste);
-                lview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                lview.setItemsCanFocus(false);
-                lview.setAdapter(adapter);
-                inEditMode = true;
-            }
-        } else if (item.getTitle().toString().equals("Hinzufügen")) {
-            Intent intentm = new Intent(getApplicationContext(), EditActivity.class);
-            intentm.putExtra(EXTRA_MESSAGE, this.getTitle());
-            startActivity(intentm);
-            finish();
-        } else if (item.getTitle().toString().equals("Zielpunktzahl bearbeiten")) {
-            Toast.makeText(getApplicationContext(), "Du möchtest also deine Ziele anpassen?", Toast.LENGTH_LONG).show();
+            } else if (item.getTitle().toString().equals("Hinzufügen")) {
+                Intent intentm = new Intent(getApplicationContext(), EditActivity.class);
+                intentm.putExtra(EXTRA_MESSAGE, this.getTitle());
+                startActivity(intentm);
+                finish();
+            } else if (item.getTitle().toString().equals("Zielpunktzahl bearbeiten")) {
+                Toast.makeText(getApplicationContext(), "Du möchtest also deine Ziele anpassen?", Toast.LENGTH_LONG).show();
 
-        } else if (item.getTitle().toString().equals("Aktuelle Punktzahl bearbeiten")) {
-            Toast.makeText(getApplicationContext(), "Du möchtest also deine aktuelle Punktzahl anpassen?", Toast.LENGTH_LONG).show();
-        }
-        return super.onOptionsItemSelected(item);
+            } else if (item.getTitle().toString().equals("Aktuelle Punktzahl bearbeiten")) {
+                Toast.makeText(getApplicationContext(), "Du möchtest also deine aktuelle Punktzahl anpassen?", Toast.LENGTH_LONG).show();
+            }
+            return super.onOptionsItemSelected(item);
     }
+
+
 
     public void writeChanges() {
         Gson gson = new Gson();
